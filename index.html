@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Aulas de Matemática e Física</title>
+<meta name="description" content="Aulas particulares e acompanhamento de Matemática e Física, online e presencial em Salvador. IB, ENEM, escola e universidade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calmo, elegante, simples — um professor, não um cursinho.
+   IDEA: uma regra simples, repetida, que gera forma sem fim (z → z² + c).
+   PICTURE: mergulho contínuo no conjunto de Mandelbrot, com indicadores de zoom, centro e iterações.
+   COLOUR and TYPE: pedra clara, verde-garrafa e latão; Jost leve.
+   LAYOUT: abertura em duas colunas (texto e figura), faixas inteiras, valores como um cardápio. */
+:root{color-scheme:light;--bg:#efece6;--paper:#f7f5f0;--ink:#1d2a25;--soft:#55625c;--green:#1f3d33;--brass:#b08d57;--line:#d8d2c6}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 17px/1.65 Jost,system-ui,sans-serif;overflow-x:clip}
+a{color:var(--green)}
+strong{font-weight:500}
+.wrap{max-width:1040px;margin:0 auto}
+.band{padding:clamp(40px,6vw,80px) max(5vw,18px)}
+header{position:sticky;top:0;z-index:5;background:rgba(239,236,230,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px max(5vw,18px);flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:500;letter-spacing:.02em}
+.marca svg{width:30px;height:30px}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+nav a{text-decoration:none;color:var(--soft)}nav a:hover{color:var(--green)}
+h1,h2,h3{font-weight:400;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,52px);color:var(--green)}
+h2{font-size:clamp(28px,3.4vw,38px);color:var(--green);margin-bottom:20px}
+h3{font-size:20px;font-weight:500}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center}
+.lead{font-size:19px;color:var(--soft);max-width:34em;margin:18px 0 26px}
+.botoes{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:400;font-size:16px;border:1px solid var(--green)}
+.btn.cheio{background:var(--green);color:#f7f5f0}.btn.cheio:hover{background:#2a5244}
+.btn.vazio{color:var(--green)}.btn.vazio:hover{background:rgba(31,61,51,.06)}
+.btn:focus-visible,nav a:focus-visible,summary:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+figure{margin:0}
+.tela{position:relative;width:100%;max-width:440px;aspect-ratio:1;margin:0 auto;border-radius:6px;overflow:hidden;background:#16302a;box-shadow:0 18px 40px -24px rgba(22,48,42,.55)}
+.tela canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .9s}
+.ind{position:absolute;left:14px;right:14px;display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#efece6;text-shadow:0 1px 3px rgba(0,0,0,.6);font-variant-numeric:tabular-nums;pointer-events:none}
+.ind,.mira{z-index:2}.tela::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(rgba(22,48,42,.6),transparent 16%,transparent 84%,rgba(22,48,42,.6))}
+.ind.cima{top:12px}.ind.baixo{bottom:12px}
+.ind b{font-weight:500}
+.mira{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid rgba(239,236,230,.55);border-radius:50%;pointer-events:none}
+.mira::before,.mira::after{content:"";position:absolute;background:rgba(239,236,230,.55)}
+.mira::before{left:50%;top:-8px;bottom:-8px;width:1px}.mira::after{top:50%;left:-8px;right:-8px;height:1px}
+.regua{display:flex;align-items:center;gap:8px}
+.regua i{display:block;height:4px;border:1px solid #efece6;border-top:0;width:60px}
+figcaption{text-align:center;font-size:15px;color:var(--soft);max-width:26em;margin:14px auto 0;line-height:1.5}
+figcaption strong{display:block;font-size:20px;color:var(--green);margin-bottom:2px;letter-spacing:.03em}
+.papel{background:var(--paper);border-block:1px solid var(--line)}
+.texto{max-width:40em}
+.texto p{margin:0 0 1em}
+.publico{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-top:28px;background:var(--line);border:1px solid var(--line)}
+.publico div{background:var(--bg);padding:18px 18px 20px}
+.publico b{display:block;font-weight:500;color:var(--green);margin-bottom:4px}
+.publico span{font-size:15px;color:var(--soft);line-height:1.5}
+.valores{max-width:720px}
+.item{padding:22px 0;border-bottom:1px solid var(--line)}
+.item:first-of-type{border-top:1px solid var(--line)}
+.linha{display:flex;align-items:baseline;gap:10px}
+.linha h3{flex:none}
+.linha i{flex:1;border-bottom:1px dotted var(--brass);transform:translateY(-5px)}
+.preco{flex:none;font-size:22px;color:var(--green);white-space:nowrap}
+.preco small{font-size:14px;color:var(--soft)}
+.item p{margin:6px 0 0;color:var(--soft);font-size:16px;max-width:34em}
+.item.destaque h3::after{content:"o mais completo";margin-left:10px;font-size:12px;font-weight:400;color:var(--brass);border:1px solid var(--brass);border-radius:999px;padding:2px 9px;vertical-align:3px}
+.nota{font-size:15px;color:var(--soft);margin-top:18px}
+details{max-width:720px;border-top:1px solid var(--line)}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:400;display:flex;justify-content:space-between;gap:12px;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--brass);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin:0 0 16px;color:var(--soft);font-size:16px;max-width:38em}
+.yt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+.contato{background:var(--green);color:#e9e4d8}
+.contato h2{color:#f7f5f0}
+.contato p{max-width:34em;color:#cfd8d2}
+.contato .btn.cheio{background:#f7f5f0;color:var(--green);border-color:#f7f5f0}
+.contato .btn.vazio{color:#f7f5f0;border-color:#cfd8d2}
+.contato .btn.vazio:hover{background:rgba(255,255,255,.06)}
+footer{background:var(--green);color:#9fb0a8;font-size:14px;padding:0 max(5vw,18px) 28px}
+footer .wrap{border-top:1px solid rgba(255,255,255,.12);padding-top:20px}
+@media(max-width:860px){.publico{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.tela{max-width:380px}}
+@media(max-width:520px){.publico{grid-template-columns:1fr}}
+@media(max-width:600px){nav{gap:14px;font-size:14px}.yt{grid-template-columns:1fr}.linha h3{flex:1 1 auto;white-space:normal}.linha i{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="marca" href="#inicio"><svg id="girassol" viewBox="-50 -50 100 100" aria-hidden="true"></svg>Nitai Bobarini</a>
+  <nav><a href="#ensino">Como ensino</a><a href="#valores">Valores</a><a href="#combinados">Combinados</a><a href="#contato">Contato</a></nav>
+</div></header>
+
+<section class="band" id="inicio"><div class="wrap hero">
+  <div>
+    <h1>Aulas de Matemática e Física</h1>
+    <p class="lead">Acompanhamento individual para IB, ENEM, escola, universidade e para quem quer voltar a estudar. Online para todo o Brasil e para quem estuda no exterior, e presencial em Salvador.</p>
+    <div class="botoes">
+      <a class="btn cheio js-whats" href="#" target="_blank" rel="noopener">Conversar pelo WhatsApp</a>
+      <a class="btn vazio" href="#valores">Ver valores</a>
+    </div>
+  </div>
+  <figure>
+    <div class="tela">
+      <canvas id="fractal" width="440" height="440" role="img" aria-label="Mergulho contínuo no conjunto de Mandelbrot, no vale dos cavalos-marinhos: espirais que se repetem a cada aproximação."></canvas>
+      <div class="mira" aria-hidden="true"></div>
+      <div class="ind cima" aria-hidden="true"><span>zoom <b id="iz">×1</b></span><span>iterações <b id="ii">120</b></span></div>
+      <div class="ind baixo" aria-hidden="true"><span>c = −0,743644 + 0,131826i</span><span class="regua"><i></i><b id="ir">0,44</b></span></div>
+    </div>
+    <figcaption><strong>z → z² + c</strong>Uma regra simples, repetida sem fim. Quanto mais perto se olha, mais forma aparece.</figcaption>
+  </figure>
+</div></section>
+
+<section class="band papel" id="ensino"><div class="wrap">
+  <h2>Como ensino</h2>
+  <div class="texto">
+    <p>Dou aulas particulares há cerca de 12 anos. Preparo para o IB, o ENEM e as provas da escola pelo caminho mais firme: entender a matéria de verdade, de onde vêm as ideias e por que elas funcionam. Quem entende não precisa decorar, e a nota vem como consequência.</p>
+    <p>Para cada aluno monto um curso próprio, a partir do seu objetivo e do ponto em que está. Matemática e Física andam como duas trilhas que ora se separam, ora se encontram: a Física dá à Matemática um motivo, e a Matemática dá à Física uma linguagem.</p>
+    <p>Entre um encontro e outro, o aluno recebe material escolhido e organizado para ele: vídeos selecionados, sínteses escritas e simulações para ver as ideias em movimento e estudar no seu ritmo.</p>
+  </div>
+  <div class="publico">
+    <div><b>IB</b><span>Mathematics AA e AI, Physics, SL e HL, em português</span></div>
+    <div><b>ENEM e vestibulares</b><span>Base sólida para resolver qualquer questão</span></div>
+    <div><b>Escola</b><span>Fundamental e médio, com atenção à passagem entre os dois</span></div>
+    <div><b>Universidade</b><span>Pré-cálculo, cálculo e física básica</span></div>
+    <div><b>Intercâmbio</b><span>Para quem estuda fora: a matéria explicada em português, com as questões e atividades em inglês</span></div>
+    <div><b>Adultos</b><span>Para quem quer voltar a estudar ou se preparar para concursos</span></div>
+  </div>
+</div></section>
+
+<section class="band" id="valores"><div class="wrap valores">
+  <h2>Valores</h2>
+  <div class="item destaque">
+    <div class="linha"><h3>Acompanhamento online</h3><i></i><span class="preco">R$ 600 <small>por mês</small></span></div>
+    <p>Quatro encontros no mês, um curso montado para os seus objetivos, material entre os encontros, dúvidas pelo WhatsApp e retorno aos pais sobre o andamento.</p>
+
+  </div>
+  <div class="item">
+    <div class="linha"><h3>Intercâmbio e estudo no exterior</h3><i></i><span class="preco"><small>a combinar</small></span></div>
+    <p>Acompanhamento que segue o currículo e o material da escola lá fora. Explico em português e trabalhamos juntos as questões e atividades em inglês, com o vocabulário da matéria. Valor e horários combinados conforme o seu fuso e a minha disponibilidade.</p>
+  </div>
+  <div class="item">
+    <div class="linha"><h3>Aula avulsa online</h3><i></i><span class="preco">R$ 180 <small>por encontro</small></span></div>
+    <p>Para uma dúvida pontual, um assunto específico ou a véspera de uma prova.</p>
+  </div>
+  <div class="item">
+    <div class="linha"><h3>Aula presencial</h3><i></i><span class="preco">R$ 220 <small>por encontro</small></span></div>
+    <p>Em Salvador, conforme a agenda.</p>
+  </div>
+  <p class="nota">Encontros de 1 hora. O mesmo valor para Matemática e Física, em todos os níveis, incluindo IB. Aulas online pelo Google Meet, com mesa digital. Pagamento por Pix.</p>
+</div></section>
+
+<section class="band papel" id="combinados"><div class="wrap">
+  <h2>Combinados</h2>
+  <details open><summary>Como marcar</summary>
+    <p>A marcação é feita pelo WhatsApp. No acompanhamento, combinamos um horário fixo na semana. A aula avulsa é marcada conforme os horários livres.</p></details>
+  <details><summary>Pagamento</summary>
+    <p>O acompanhamento é pago no início de cada mês. A aula avulsa e a presencial podem ser pagas ao final do encontro, ou antes, para garantir o horário.</p></details>
+  <details><summary>Desmarcar e remarcar</summary>
+    <p>Com pelo menos 12 horas de antecedência, remarcamos sem custo. Com menos de 12 horas, ou em caso de falta, o encontro é considerado realizado.</p></details>
+  <details><summary>Encontros do mês</summary>
+    <p>Os encontros do acompanhamento são remarcados dentro do mesmo mês e não passam para o mês seguinte. Atrasos são descontados do próprio encontro, que termina no horário combinado.</p></details>
+  <details><summary>Dúvidas pelo WhatsApp</summary>
+    <p>Para quem faz o acompanhamento: de segunda a sexta, sobre a aula e o material da semana, com resposta em até um dia útil.</p></details>
+</div></section>
+
+<section class="band" id="youtube"><div class="wrap yt">
+  <div class="texto">
+    <h2>Aulas abertas</h2>
+    <p>Aos poucos, vou publicando aulas gratuitas no YouTube, seguindo as mesmas trilhas de Matemática e Física. Quem quiser ir mais fundo, com um curso feito para si, encontra aqui o acompanhamento.</p>
+  </div>
+  <a class="btn vazio js-youtube" href="#" target="_blank" rel="noopener">Ver o canal no YouTube</a>
+</div></section>
+
+<section class="band contato" id="contato"><div class="wrap">
+  <h2>Vamos conversar</h2>
+  <p>Conte em que série ou curso você está, qual matéria e o que quer alcançar. A partir disso, montamos juntos o caminho.</p>
+  <div class="botoes">
+    <a class="btn cheio js-whats" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn vazio js-insta" href="#" target="_blank" rel="noopener">Instagram <span class="js-insta-nome" style="margin-left:6px"></span></a>
+  </div>
+</div></section>
+<footer><div class="wrap">Nitai Bobarini · Aulas de Matemática e Física · Salvador, Bahia</div></footer>
+
+<script>
+{
+  // Troque aqui seus contatos
+  const CONFIG = {
+    whatsapp: "5571992803942",            // 55 + DDD + número, sem espaços
+    instagram: "nitaibobarini",           // sem o @
+    youtube: "https://www.youtube.com/@nitaipadabobarini",
+    mensagem: "Olá, Nitai! Vi o site e gostaria de saber mais sobre as aulas. Série ou curso: ___ . Matéria: ___ . Objetivo: ___ ."
+  };
+  const wa = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(CONFIG.mensagem);
+  document.querySelectorAll(".js-whats").forEach(a => a.href = wa);
+  document.querySelectorAll(".js-insta").forEach(a => a.href = "https://instagram.com/" + CONFIG.instagram);
+  document.querySelectorAll(".js-insta-nome").forEach(s => s.textContent = "@" + CONFIG.instagram);
+  document.querySelectorAll(".js-youtube").forEach(a => a.href = CONFIG.youtube);
+
+  // Girassol pequeno (ângulo de ouro)
+  const g = document.getElementById("girassol");
+  const ang = Math.PI * (3 - Math.sqrt(5));
+  let dots = "";
+  for (let i = 1; i <= 90; i++) {
+    const r = 4.6 * Math.sqrt(i), t = i * ang;
+    dots += `<circle cx="${(r * Math.cos(t)).toFixed(2)}" cy="${(r * Math.sin(t)).toFixed(2)}" r="${(1.6 + i / 60).toFixed(2)}" fill="${i % 8 === 0 ? "#b08d57" : "#1f3d33"}"/>`;
+  }
+  g.innerHTML = dots;
+
+  // Fractal: mergulho no conjunto de Mandelbrot
+  const cv = document.getElementById("fractal"), ctx = cv.getContext("2d");
+  const N = cv.width, CX = -0.743643887037151, CY = 0.131825904205330;
+  const S0 = 3.2, SMIN = 4e-11, PASSO = 0.5, TEMPO = 1.9;   // largura inicial, final, fator e segundos por etapa
+  const iz = document.getElementById("iz"), ii = document.getElementById("ii"), ir = document.getElementById("ir");
+  const paradas = [[239,236,230],[176,141,87],[31,61,51],[111,143,126],[239,236,230]];
+  const pal = [];
+  for (let i = 0; i < 256; i++) {
+    const f = i / 256 * (paradas.length - 1), k = Math.floor(f), t = f - k;
+    pal.push(paradas[k].map((v, j) => Math.round(v + (paradas[k + 1][j] - v) * t)));
+  }
+  const iter = sw => Math.min(3000, Math.floor(120 + 90 * Math.log2(S0 / sw)));
+  const codigo = `onmessage = e => {
+    const { s, cx, cy, N, it, id, pal } = e.data;
+    const buf = new Uint8ClampedArray(N * N * 4);
+    for (let py = 0; py < N; py++) {
+      const y0 = cy - (py / N - 0.5) * s;
+      for (let px = 0; px < N; px++) {
+        const x0 = cx + (px / N - 0.5) * s;
+        let x = 0, y = 0, x2 = 0, y2 = 0, n = 0;
+        const q = (x0 - 0.25) * (x0 - 0.25) + y0 * y0;
+        if (q * (q + (x0 - 0.25)) < 0.25 * y0 * y0 || (x0 + 1) * (x0 + 1) + y0 * y0 < 0.0625) n = it;
+        while (n < it && x2 + y2 < 256) { y = 2 * x * y + y0; x = x2 - y2 + x0; x2 = x * x; y2 = y * y; n++; }
+        const o = (py * N + px) * 4;
+        if (n >= it) { buf[o] = 22; buf[o + 1] = 48; buf[o + 2] = 42; }
+        else {
+          const nu = n + 1 - Math.log2(Math.log(x2 + y2) / 2);
+          const f = Math.sqrt(nu) * 22, i = Math.floor(f), t = f - i;
+          const A = pal[i & 255], B = pal[(i + 1) & 255];
+          buf[o] = A[0] + (B[0] - A[0]) * t; buf[o + 1] = A[1] + (B[1] - A[1]) * t; buf[o + 2] = A[2] + (B[2] - A[2]) * t;
+        }
+        buf[o + 3] = 255;
+      }
+    }
+    postMessage({ id, s, it, buf }, [buf.buffer]);
+  };`;
+  let wk = null;
+  try { wk = new Worker(URL.createObjectURL(new Blob([codigo], { type: "text/javascript" }))); } catch (e) {}
+  let geracao = 0, atual = null, fila = [], pedido = null, prog = 0, visivel = true, ultimo = 0;
+  const sup = n => String(n).replace(/-/g, "⁻").replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+  const fmt = (v, c) => v.toFixed(c).replace(".", ",");
+  function zoomTexto(m) {
+    if (m < 1000) return "×" + fmt(m, m < 10 ? 1 : 0);
+    const e = Math.floor(Math.log10(m));
+    return "×" + fmt(m / 10 ** e, 1) + "·10" + sup(e);
+  }
+  function pedir(sw) {
+    if (!wk || pedido) return;
+    pedido = sw;
+    wk.postMessage({ s: sw, cx: CX, cy: CY, N, it: iter(sw), id: geracao, pal });
+  }
+  if (wk) wk.onmessage = e => {
+    pedido = null;
+    if (e.data.id !== geracao) return;
+    const c = document.createElement("canvas"); c.width = c.height = N;
+    c.getContext("2d").putImageData(new ImageData(e.data.buf, N, N), 0, 0);
+    const quadro = { s: e.data.s, it: e.data.it, c };
+    if (!atual) { atual = quadro; desenhar(atual.s); cv.style.opacity = 1; }
+    else fila.push(quadro);
+    const ultimoS = (fila.length ? fila[fila.length - 1] : atual).s;
+    if (fila.length < 2 && ultimoS * PASSO > SMIN && !parado) pedir(ultimoS * PASSO);
+  };
+  function desenhar(sw) {
+    const k = atual.s / sw, lado = N / k, o = (N - lado) / 2;
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(atual.c, o, o, lado, lado, 0, 0, N, N);
+    iz.textContent = zoomTexto(S0 / sw);
+    ii.textContent = atual.it;
+    const largura = sw * 60 / cv.clientWidth;
+    ir.textContent = largura >= 0.01 ? fmt(largura, 2) : fmt(largura / 10 ** Math.floor(Math.log10(largura)), 1) + "·10" + sup(Math.floor(Math.log10(largura)));
+  }
+  function recomecar() {
+    geracao++; atual = null; fila = []; prog = 0; cv.style.opacity = 0;
+    setTimeout(() => { pedido = null; pedir(S0); }, 900);
+  }
+  const parado = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cv.style.opacity = 0;
+  if (!wk) { ctx.fillStyle = "#16302a"; ctx.fillRect(0, 0, N, N); cv.style.opacity = 1; }
+  else if (parado) pedir(0.004);
+  else {
+    pedir(S0);
+    const io = new IntersectionObserver(e => visivel = e[0].isIntersecting);
+    io.observe(cv);
+    const laco = now => {
+      const dt = Math.min(0.1, (now - (ultimo || now)) / 1000); ultimo = now;
+      if (visivel && atual) {
+        prog += dt / TEMPO;
+        if (prog >= 1) {
+          if (fila.length) {
+            atual = fila.shift(); prog -= 1;
+            const ultimoS = (fila.length ? fila[fila.length - 1] : atual).s;
+            if (ultimoS * PASSO > SMIN) pedir(ultimoS * PASSO);
+          } else if (atual.s * PASSO <= SMIN) { prog = 1; recomecar(); }
+          else prog = 1;
+        }
+        if (atual) desenhar(atual.s * PASSO ** Math.min(prog, 1));
+      }
+      requestAnimationFrame(laco);
+    };
+    requestAnimationFrame(laco);
+  }
+}
+</script>
+</body>
+</html>
